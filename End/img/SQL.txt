@@ -1,0 +1,408 @@
+17:13 2022/7/8
+
+·MySQL
+
+	·启动MySQL	：	net start mysql
+	
+	·停止MySQL	：	net stop mysql
+
+	·登录 	        	：	mysql -uroot -p111111         -u后面是用户名  -p后面是密码
+
+	·退出        	：	 exit  或者 quit
+
+
+
+------------------------------------------------------------------------------------------------------------------
+
+
+·SQL分类 
+
+
+	·DDL (操作数据库，表)  
+
+		·查询 	show databases
+		
+		·创建	creat database name
+		
+				creat database if not exists name
+
+		·删除	drop database name
+
+				drop database if exists name
+
+		·使用	use 数据库名字
+
+
+		·查看当前使用的数据库 select database()
+
+
+
+
+	·DML（对数据增删改） 
+
+		·添加数据
+
+			·给指定列添加数据   insert into 表名(列名1,列名2...) values(值1，值2,...)
+
+
+			·给所有列添加数据   insert into 表名 values(值1，值2)   省略列名
+
+
+			·批量添加		 insetr into 表名(列名1，列名2，...) values  (值1，值2...),(值1,值2...),...
+
+
+					或者		 insert into 表名 values （），（），（）,...  给全部列赋值（直接省略列名列表）
+
+		·修改数据
+
+			·修改值 update 表名 set 列名1=值1，列名2=值2.。。[where 条件]
+	
+
+			·注意事项：如果update 没有写where条件，则会将表中所有数据修改！！！
+
+		·删除数据
+			·删除 delete from 表名 [where 条件]
+			
+			·一定要加条件，否则跟update一样，整列删除
+
+
+
+
+	·DQL（对表中数据查询） （重点）
+
+		·基础查询（select）
+
+			·select 字段列表 from 表名 
+
+			·select * from 表名 查询所有数据
+
+			·去除重复记录 select distinct 字段列表 from 表名    （加了一个distinct关键字）
+
+			·起别名 as（可以神略）如：select name as '姓名' , math as '数学成绩' from stu；
+			
+		·条件查询 （where）
+
+			·语法： select 字段列表 from 表名 where 条件列表
+
+		·聚合函数：将一列数据作为一个整体，进行纵向计算   null值不参与聚合函数计算
+
+			·聚合函数：count（列名）统计数量（一般不选用为nul的列）只统计非null
+
+			·max（列名）最大值
+
+			·min（列名）
+
+			·sum（列名）求和
+
+			·avg（列名）平均值
+
+			·语法：select 聚合函数名（列名）from 表
+
+
+		·排序查询 （order by）
+
+			·select 字段列表 from 表名 order by 排序字段名1 排序方式1，排序字段名2 排序方式2......
+
+			·排序方式：升序 asc 降序 desc（默认的是asc）
+
+		·分组查询 (group by / having)：
+
+			·语法： select [分组字段名],字段列表 from 表名 [where 分组前条件限定] group by 分组字段名 [having 分组后条件过滤]
+
+
+			·注意：分组之后查寻的字段为聚合函数和分组字段，查询其他字段无意义
+
+
+			·where 和 having 区别：
+
+				·执行的时机不一样，where 是分组前进行信啊顶，不满足where条件则不参与分组，having是分组之后对结果进行过滤。
+
+ 				·可判断的条件不一样，where不能对聚合函数进行判读，havin可以
+
+				·执行顺序 where>聚合函数>having
+
+
+		·分页查询（limit）
+
+			·语法 ：select 字段列表 from 表名 limit 起始索引，查询条目数
+
+	·DCL（对数据库进行权限控制）
+
+==========================================================================================================================
+		
+
+约束 >>数据库设计>>多表查询>>事务
+
+·约束
+
+	·约束：作用与表中列上的规则，用于限制加入表的数据
+
+	·约束的存在保证了数据库中数据的正确性，有效性和完整性
+	
+	·约束的分类：·非空约束；保证列中所有数据不能有null                     not null 
+
+			  ·唯一约束：保证列中所有数据各不相同                       unique
+
+			  ·主键约束：主键是一行数据的 唯一标识 ，要求非空且唯一     primary key
+
+			  ·检查约束：保证列中的值满足某一个条件                     check		  ·tips：MySQL  不支持检查约束，但可以在java代码中完成
+
+			  ·默认约束：保存数据时，未指定值则采用默认值               default
+
+			  ·外键约束：外键用来让两个表的数据之间建立链接，保证数据的一致性和完整性 foreign key
+
+				·在建表时添加外键约束：create table 表名 （
+						
+							xxxxxxxxxxxxxxxxxxx
+
+					constraint 外键名字 foreign key 外键列名 references 主表(主表列名)
+		
+					）
+				·要先有主表和主表数据才能创建
+
+		
+				·删除外键 alter table 表名 drop foreign key 外键名字
+		
+		
+				·添加外键（建完表后）： alter table 表名 add constraint 外键名称 foreign key（从表列名） references 主表名(列名）
+
+	
+------------------------------------------------------------------------------------------------------------------------------------
+
+·数据库设计：
+
+	·软件的研发步骤
+
+		·需求分析（产品经理）
+			·产品原型
+
+		·设计（架构师）（开发工程师）
+
+			·软件结构设计
+
+			·数据库设计	
+
+			·接口设计
+
+			·过程设计
+
+		·编码（开发工程师）
+			
+		·测试（测试工程师）
+
+		·安装部署（运维工程师）
+
+	·数据库设计概念
+		
+
+	·数据库设计步骤
+
+		·需求分析  
+
+		·逻辑分析   
+
+		·物理设计  
+
+		·维护设计
+
+---------------------------------------------------------------------------------------
+
+·关系表：
+
+	·一对一   如;用户和用户详情
+
+
+	·一对多/多对一   如：部门和员工///一个部门对应多个员工，一个员工对应一个部门
+
+
+		·实现方式：在多的一方建立外键，指向一的一方主键
+
+
+	·多对多	如：商品和订单///一个商品对应多个顶单，一个订单包含多个水商品
+
+
+		·实现方式：建立第三张中间表，中间表至少包含两个外键，分别关联两方主键
+
+	·在navicat 中实现一个
+
+------------------------------------------------------------------------
+
+·多表查询
+
+	·select * from 表1，表2；  笛卡尔积会产生无效数据
+
+	·消除无效数据 
+
+	·连接查询
+
+
+		·内连接：相当于查询AB的交集
+
+			·隐式内连接：select ... from a,b where ...
+
+			·显示内连接：select * from A inner join B on A.id=B.id   (inner 可以省略)
+
+
+		·外连接：
+
+			·左:查询A表所有的数据和交集部分的数据
+				seletc *from A left [outer] join B on 条件
+
+
+			·右:查询B表所有的数据和交集部分的数据
+				select * from A right [outer] join B on 条件
+
+		·子查询 查询中嵌套查询
+
+			·单行单列 select 字段 from 表 where 字段=（子查询）
+
+			·多行单列 select 字段 from 表 where 字段 in（子查询）
+
+			·多行多列 selsec 字段 form （子查询） where 条件
+
+
+
+--------------------------------------------------------
+·事务   
+
+	·是一种机制，一个操作序列，包含了一组数据库操作命令
+
+	·要么同时成功，要么同时失败 
+
+	·事务是一个不可分割的逻辑工作单元
+
+	·开始事务  begin 或者  start transaction
+
+	·回滚事务  rollback
+
+	·提交事务 commit
+
+	·事务的四大特征
+
+		·原子性（A）：事务不可分割的最小操作单位，要么同时成功，要么同时失败
+
+		·一致性（C）：事务完成时，必须使所有数据保持一致
+
+		·隔离性（I）：多个事务之间，操作的可见性
+
+		·持久性（D）：事务一旦提交或回滚，它对数据库中的数据的改变就时永久的
+		
+	·查询事务的默认提交方式 select @@autocommin    1就是自动提交，0时手动提交
+
+	·修改事务的提交方式 set @@autocommit =0或者1
+
+-------------------------------------------------------------------------------------
+
+
+JDBC 
+
+	JDBC 就是使用java语言操作关系型数据库的一套API 、
+
+
+	全称：java数据库连接
+
+
+步骤：1.创建工程并导入驱动jar包 
+
+	1.注册驱动 Class.forName("com.mysql.jdbc.Driver")    mysql 5.0版本以后可以省略
+
+	2.获取连接 Connection conn = DriverManager.getConnection(url,username,password)
+
+	3，定义sql语句 String sql= "updata table set money =1000"
+
+	4获取执行sql对象 Statement stmt = conn.createStatement();
+
+	5.执行sql stmt.exeuteUpdate(sql);
+
+	6.返回结果 int count =stmt.excuteUpdate(sql); System.out.print(count)#这是受影响的行数
+
+	7.释放资源 先关闭stmt   stmt.close()
+
+			再关闭 conn    conn.close()
+
+
+主要用到的类：
+
+DriverManage类
+
+	注册驱动
+
+	获取连接  static Connection getConnection( url , user , password )  返回的是一个Connection对象
+
+Connection （interface） 这是一个接口
+	
+	获取执行SQL的对象 
+				1.普通执行SQL对象	Statement creatStatement()
+
+				2.预编译SQL的执行SQL对象，防止SQL注入  PreparedStatement PreparedStatement(String sql)
+
+				3.执行储存过程的对象 CallableStatement prepareCall(String sql)
+
+
+	管理事务
+			1.开启事务:setAutoCommit(boolean autoCommit)  true为自动提交；false为手动提交 即开启事务
+
+			2.提交事务:commit()
+
+			3.回滚事务：rollback（）
+
+Statement类：执行SQL语句
+		执行SQL ：
+				执行DML,DDL,语句，返回受影响的行数------对 数据库，表 的 增删改
+
+					int executeUpdate（sql）
+
+				执行 DQL语句  返回值是  ResultSet集对象------------查询----
+			
+					ResultSet executeQuery（sql）
+
+ResultSet   结果集对象   封装了DQL查询语句的结果
+	
+	获取查询结果 
+
+		将光标从当前位置项下移动一行    判断当前行是否为有效行
+
+			boolean next（）  返回true 有效即有数据
+
+		获取数据 
+
+			xxx getXxx (参数)
+
+		例如 age 这一列的数据为int型  可以 getInt（"age"）
+			
+			常见用法：
+
+				while（rs.next()）{
+
+					rs.getInt（"age"）
+
+					}
+
+PreparedStatement 这是接口
+
+	预编译SQL语句并执行：预防SQL注入 
+
+		String sql = "select * for user where username =? and password = ?"  以问号作为占位符
+		
+		PreparedStatement 的对象调用这些方法来设置？的值
+
+			如 setInt（参数1,参数2）
+
+		开启预编译功能   将 useSerberPrepareSymts=true  加到url 的后面
+
+			参数1：？的位置编号，从1开始，即第几个问号
+
+			参数2： ？的值
+
+			预编译后 executeUpdate（）和 executeQuary（） 就不需要传递 参数 sql
+
+数据库连接池
+
+ 	简介
+		是一个容器，负责分配管理，Connertion
+		标准接口DataSoource
+			Connection getConnertion
+
+	Druid（德鲁伊）
+
+
