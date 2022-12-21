@@ -1,0 +1,100 @@
+img {
+    margin: 0;
+}
+
+#logo {
+    width: 100%;
+    height: 100%;
+}
+
+#nav {
+    background: linear-gradient(rgb(212, 66, 53), rgb(194, 50, 37));
+}
+
+#nav a {
+    width: 96px;
+    height: 100%;
+    display: inline-block;
+    padding: 15px;
+    text-decoration: none;
+    color: whitesmoke;
+    box-sizing: border-box;
+    margin: 0 5px;
+}
+
+#nav a:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.title a {
+    text-decoration: none;
+    box-sizing: border-box;
+    float: right;
+    display: inline-block;
+    width: 100px;
+    height: 100%;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.text {
+    overflow: auto;
+}
+
+.text a {
+    translate: 20px 0;
+    display: inline-block;
+    width: 90%;
+    margin-top: 20px;;
+    color: black;
+    transition: color 0.3s, translate 0.2s;
+    text-decoration: none;
+}
+
+.text small {
+    float: right;
+}
+
+.text a::before {
+    content: "◆";
+}
+
+.text a:hover {
+    translate: 0 0;
+    color: red;
+}
+
+
+.article .text li {
+    margin: 10px;
+}
+
+.row3 {
+    background: url("../img/row3bg.jpg") no-repeat center;
+    background-size: cover;
+    z-index: -1;
+}
+
+.row3 .article2 {
+    border-radius: 5px;
+}
+
+.dateTitle {
+    margin: 10px;
+    background: rgba(248, 2, 20, 0.48);
+    text-align: center;
+    width: 60px;
+    height: 20px;
+    border-radius: 5px;
+    color: whitesmoke;
+}
+
+.row5 {
+    background: #983333;
+    color: white;
+    text-align: center;
+    padding-top: 18px;
+}
+.img-title{
+    height: 71px;
+}

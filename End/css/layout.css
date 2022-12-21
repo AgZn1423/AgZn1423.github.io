@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+div {
+    box-sizing: border-box;
+}
+
+.border {
+    border: #00fffb 1px solid;
+}
+
+.container {
+    /*0.71*/
+    width: 1344px;
+    margin: auto;
+}
+
+/*高度*/
+.logo {
+    height: 536px;
+}
+
+.nav {
+    height: 50px;
+}
+
+.main {
+    width: 849px;
+    height: 100%;
+    margin: auto;
+}
+
+.title {
+    height: 71px;
+    width: 100%;
+}
+
+.article {
+    width: 50%;
+    display: inline-block;
+    float: left;
+}
+
+.article2 {
+    width: 215px;
+    height: 134px;
+    margin: 30px;
+    display: inline-block;
+    float: left;
+}
+
+.h379 {
+    height: 379px;
+}
+
+.row1 {
+    height: 450px;
+}
+
+.row2 {
+    height: 334px;
+}
+
+.row3 {
+    height: 284px;
+}
+
+.row4 {
+    height: 334px;
+}
+
+.row5 {
+    height: 47px;
+}
+
+.bg-red {
+    background: rgba(255, 48, 42, 0.51);
+}
+
+.bg-blue {
+    background: rgba(60, 121, 255, 0.51);
+}
+
+.bg-yellow {
+    background: rgba(255, 234, 60, 0.51);
+}
+
+.bg-green {
+    background: rgba(82, 255, 101, 0.51);
+}
+
+.bg-perple {
+    background: rgba(196, 46, 255, 0.51);
+}
+
+.bg-gray {
+    background: rgba(77, 70, 81, 0.51);
+}
+
+.bg-orange {
+    background: rgba(255, 166, 50, 0.51);
+}
+
+.bg-none {
+    background: rgba(0, 0, 0, 0);
+}
+
+.bg-white{
+    background: rgba(248,233,247,0.48);
+}
